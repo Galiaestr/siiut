@@ -40,6 +40,7 @@ else:
 
 INSTALLED_APPS = [
     ###Django App
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
