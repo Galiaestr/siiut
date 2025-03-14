@@ -1,29 +1,28 @@
 from django.db import models
-
 from django.contrib.auth.models import User
 
 class Quarter(models.Model):
-    quarter = models.IntegerField(verbose_name='Cuatrimestre No')
-    quarter_name = models.CharField(verbose_name='Cuatrimestre', max_length=20)
-
-    def __str__(self):  
+    quarter = models.IntegerField(verbose_name='Cuatrimestre No.')
+    quarter_name = models.CharField(verbose_name='Cuatrimestre', max_length=25)
+    
+    def __str__(self):
         return self.quarter_name
-
+    
     class Meta:
         verbose_name = 'Cuatrimestre'
-
-
+        verbose_name_plural = 'Cuatrimestres'
+        
 class Level(models.Model):
     name = models.CharField(max_length=50, verbose_name='Nivel')
-    short_name = models.CharField(max_length=10, verbose_name='Abreviatura')
-
+    short_name = models.CharField(max_length=10,verbose_name='Nombre corto')
+    
     def __str__(self):
-        return self.short_name
+        return self.name
     
     class Meta:
         verbose_name = 'Nivel'
+        verbose_name_plural = 'Niveles'
 
-    
 class Career(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nombre')
     short_name = models.CharField(max_length=10,verbose_name='Nombre corto')
@@ -32,7 +31,7 @@ class Career(models.Model):
     principal = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,related_name='careers', verbose_name='Director')
     year = models.CharField(max_length=5,verbose_name='Año')
     
-    def _str_(self):
+    def __str__(self):
         return f"{self.level} - {self.name}"
     
     class Meta:
@@ -46,8 +45,9 @@ class Subject(models.Model):
     weekly_hours = models.IntegerField(verbose_name='Horas por semana')
     # file: para guardar la hoja de asignatura
     
-    def _str_(self):
+    def __str__(self):
         return f"{self.career.short_name} - {self.quarter} - {self.name}"
     
     class Meta:
         verbose_name = 'Materia'
+    

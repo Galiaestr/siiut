@@ -1,27 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 
-{% block title %} Lista de Cuatrimestres {% endblock %}
+{% block title %} Lista de Cuatrimestres {% endblock title %} 
 
 {% block content %}
-<a href="{%  url 'career:quarter_create'}">Nuevo Cuatri</a>
-<table>
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>Cuatrimestre No</th>
-            <th>Cuatrimestre</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for quarter in quarters %}
-        <tr>
-            <td>{{ quarter.id }}</td>
-            <td>{{ quarter.quarter }}</td>
-            <td>{{ quarter.quarter_name }}</td>
-            <td><a href="{% url 'career:quarter_details' quarter.id %}"> Detalles </a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<br>
+<a 
+  class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" 
+  href="{% url 'career:quarter_create' %}">Nuevo Cuatri</a>
+<br>
+<table class="border-collapse border border-gray-400">
+  <br>
+  <thead>
+    <tr>
+      <th class="border border-gray-800 border-separate p-2" > Id </th> 
+      <th class="border border-gray-800 border-separate p-2" > Cuatrimestre No. </th>
+      <th class="border border-gray-800 border-separate p-2" > Cuatrimestre </th>
+      <th class="border border-gray-800 border-separate p-2" > Acciones </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for quarter in quarters %}
+    <tr>
+      <td class="border text-center border-gray-800">{{quarter.quarter}}</td>
+      <td class="border text-center border-gray-800">{{quarter.quarter}}</td>
+      <td class="border text-center border-gray-800">{{quarter.quarter_name}}</td>
+      <td class="border text-center border-gray-800"><a href="{% url 'career:quarter_details' quarter.id %}">Detalles</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
-{% endblock %}
+{% endblock content %}
