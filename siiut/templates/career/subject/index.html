@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Plan de estudios {% endblock title %}
+
+
+{% block content %}
+<h1 class="text-2xl text-grey-700 font-bold">Materias</h1>
+    <br>
+    <a 
+    class="bg-grey-300 hover:bg-grey-400 text-black font-semibold py-2 px-4 border border-grey-500 rounded shadow"
+    href="{% url 'career:subject_create' career.id %}">
+    Nueva Materia</a>
+    <table class="border-collapse border border-grey-500 w-full mt-4">
+        <thead>
+            <tr class="bg-gray-400 text-black">
+                <th class="border border-grey-500 p-2">Id</th>
+                <th class="border border-grey-500 p-2">Materia</th>
+                <th class="border border-grey-500 p-2">Cuatrimestre</th>
+                <th class="border border-grey-500 p-2">Horas totales</th>
+                <th class="border border-grey-500 p-2">Horas Semanales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+
+                <tr class="bg-transparent hover:bg-grey-200">
+                    <td class="border border-grey-400 text-center p-2">{{ subject.name }}</td>
+                    <td class="border border-grey-400 text-center p-2">{{ subject.quarter }}</td>
+                    <td class="border border-grey-400 text-center p-2">{{ subject.total_hours }}</td>
+                    <td class="border border-grey-400 text-center p-2">{{ subject.weekly_hours }}</td>
+                    <td class="border border-grey-400 text-center p-2">{{ subject.id }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="container mt-4 mx-auto flex justify-between">
+        <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="px-3 py-1 border border-grey-500 rounded hover:bg-purple-300">&laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 border border-grey-500 rounded hover:bg-grey-300">
+                <i class="ri-arrow-left-s-line"></i>
+
+             {% endif %}
+      </div>
+      <div>
+        <span><b><u>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</u></b></span>
+      </div>
+      <div>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="text-sky-500 border p-3 rounded-md">Adelante</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="text-sky-500 border p-3 rounded-md">&raquo;</a>
+        {% endif %}
+      </div>
+      </div>
+
+
+{% endblock content %}
+    

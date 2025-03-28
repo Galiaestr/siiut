@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIIUT 2025 | {% block title %}{% endblock %}</title>
     <script src ="https:/unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
 </head>
-<body class="bg-gray-300">
+<body>
     {% include 'shared/header.html' %}
     <div class="px-6 py-2 flex gap-4 bg-grey-300">
       {% include 'shared/menu.html' %}
-      <main class="container">
+      <main class="w-full p-6">
         {% block content %} 
-        {% endblock content %}
+        {% endblock %}
       </main>
     </div>
   </body>

@@ -1,10 +1,9 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Subject
+from .models import Quarter, Level, Career, Subject
+from .forms import QuarterForm, LevelForm, CareerForm, SubjectForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
-
-from .forms import QuarterForm, LevelForm, CareerForm
-from .models import Quarter, Level, Career
 
 # CRUD Views for Quarter
 
@@ -114,3 +113,43 @@ class CareerDeleteView(DeleteView):
     model = Career
     template_name = 'career/career/delete.html'
     success_url = reverse_lazy('career:career_list')
+
+class SubjectListView(ListView):
+    model = Subject
+    paginate_by = 10
+    template_name = 'career/subject/index.html'
+    context_object_name = 'subjects'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_career = self.kwargs.get('career_id')
+        queryset = queryset.filter(career_id=id_career).order_by('quarter', 'name')
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id_career = self.kwargs.get('career_id')
+        context['career'] = Career.objects.get(pk=id_career)
+        return context
+    
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = 'career/subject/create.html'
+    success_url = reverse_lazy('career:subject_list')
+    
+    def form_valid(self, form):
+        id_career = self.kwargs.get('career_id')
+        career = Career.objects.get(id=id_career)
+        form.instance.career = career
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        id_career = self.kwargs.get('career_id')
+        return reverse_lazy('career:subject_list', kwargs={'career_id': id_career})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id_career = self.kwargs.get('career_id')
+        context['career'] = Career.objects.get(pk=id_career)
+        return context

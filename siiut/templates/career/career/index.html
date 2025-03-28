@@ -37,7 +37,9 @@
                     <td class="border text-center border-gray-800">{{ career.principal }}</td>
                     <td class="border text-center border-gray-800">{{ career.year }}</td>
                     <td class="border text-center border-gray-800">
-                        <a href="{% url 'career:career_details' career.id %}">Detalles</a>
+                        <a href="{% url 'career:career_details' career.id %}"> Detalles
+                            <i class="ri-file-edit-fill"></i>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

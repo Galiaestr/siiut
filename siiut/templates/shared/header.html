@@ -4,7 +4,7 @@
         <ul class="flex space-x-4">
             {% if user.is_authenticated %}
             <li>
-                <form action="{% url 'logout' %}">
+                <form action="{% url 'home:logout' %}" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Salir">
                 </form>
